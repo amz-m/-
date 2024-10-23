@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAI</title>
+    <script>
+        function redirectToAmazon() {
+            var country = document.getElementById("countrySelect").value;
+            var baseUrl = "https://www.amazon.";
+            var links = {
+                "US": "com",
+                "IN": "in",
+                "UK": "co.uk",
+                "DE": "de",
+                "FR": "fr",
+                "JP": "co.jp",
+                "CA": "ca"
+                // Add more countries as needed
+
+            };
+
+            if (links[country]) {
+                window.location.href = baseUrl + links[country];
+            } else {
+                alert("Country not supported.");
+            }
+        }
+
+        function setDefaultCountry() {
+            var userLang = navigator.language || navigator.userLanguage; // Get the user's language
+            var countryCode = userLang.split('-')[1] || userLang.split('_')[1]; // Extract country code
+            var select = document.getElementById("countrySelect");
+
+            // Set default selection based on language
+            if (countryCode && select.querySelector(`option[value="${countryCode}"]`)) {
+                select.value = countryCode;
+            } else {
+                select.value = "US"; // Default to US if no match
+            }
+        }
+
+        window.onload = setDefaultCountry; // Set default country on page load
+    </script>
+</head>
+<body>
+    <h1>Choose Your Country Amazon Link</h1>
+    <select id="countrySelect">
+        <option value="US">United States</option>
+        <option value="IN">India</option>
+        <option value="UK">United Kingdom</option>
+        <option value="DE">Germany</option>
+        <option value="FR">France</option>
+        <option value="JP">Japan</option>
+        <option value="CA">Canada</option>
+        <!-- Add more countries as needed -->
+    </select>
+    <button onclick="redirectToAmazon()">Go to Amazon</button>
+</body>
+</html>
