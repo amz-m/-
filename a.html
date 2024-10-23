@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hai</title>
+    <script>
+        function redirectToAmazon() {
+            var country = document.getElementById("countrySelect").value;
+            var baseUrl = "https://www.amazon.";
+            var links = {
+                "US": "amazon.com",
+                "UK": "amazon.co.uk",
+                "DE": "amazon.de",
+                "FR": "amazon.fr",
+                "JP": "amazon.co.jp",
+                "CA": "amazon.ca"
+                // Add more countries as needed
+            };
+
+            if (links[country]) {
+                window.location.href = baseUrl + links[country];
+            } else {
+                alert("Country not supported.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Choose Your Country Amazon Link</h1>
+    <select id="countrySelect">
+        <option value="US">United States</option>
+        <option value="UK">United Kingdom</option>
+        <option value="DE">Germany</option>
+        <option value="FR">France</option>
+        <option value="JP">Japan</option>
+        <option value="CA">Canada</option>
+        <!-- Add more countries as needed -->
+    </select>
+    <button onclick="redirectToAmazon()">Go to Amazon</button>
+</body>
+</html>
