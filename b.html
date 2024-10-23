@@ -25,6 +25,21 @@
                 alert("Country not supported.");
             }
         }
+
+        function setDefaultCountry() {
+            var userLang = navigator.language || navigator.userLanguage; // Get the user's language
+            var countryCode = userLang.split('-')[1] || userLang.split('_')[1]; // Extract country code
+            var select = document.getElementById("countrySelect");
+
+            // Set default selection based on language
+            if (countryCode && select.querySelector(`option[value="${countryCode}"]`)) {
+                select.value = countryCode;
+            } else {
+                select.value = "US"; // Default to US if no match
+            }
+        }
+
+        window.onload = setDefaultCountry; // Set default country on page load
     </script>
 </head>
 <body>
