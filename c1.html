@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Your Country</title>
+    <title>Your Country</title>
     <script>
-        async function autoSelectCountry() {
-            const countrySelect = document.getElementById("country");
+        async function displayCountry() {
+            const countryDisplay = document.getElementById("country-display");
             const errorMessage = document.getElementById("error-message");
 
             try {
@@ -33,40 +33,22 @@
                     // Add more mappings as needed
                 };
 
-                const defaultCountry = countryMap[userCountry];
+                const countryName = countryMap[userCountry] || 'Unknown Country';
+                countryDisplay.textContent = `Your country is: ${countryName}`;
+                errorMessage.textContent = ""; // Clear any previous error messages
 
-                if (defaultCountry) {
-                    for (let i = 0; i < countrySelect.options.length; i++) {
-                        if (countrySelect.options[i].text === defaultCountry) {
-                            countrySelect.selectedIndex = i;
-                            break;
-                        }
-                    }
-                } else {
-                    errorMessage.textContent = "Country not found.";
-                }
             } catch (error) {
                 console.error('Error fetching location data:', error);
-                errorMessage.textContent = "Unable to fetch your location. Please check your internet connection or permissions, and select your country manually.";
+                errorMessage.textContent = "Unable to fetch your location. Please check your internet connection or permissions.";
+                countryDisplay.textContent = ""; // Clear any previous country display
             }
         }
     </script>
 </head>
-<body onload="autoSelectCountry()">
+<body onload="displayCountry()">
 
-    <h1>Select Your Country</h1>
-    <select id="country">
-        <option>Select your country</option>
-        <option>United States</option>
-        <option>United Kingdom</option>
-        <option>France</option>
-        <option>Germany</option>
-        <option>Canada</option>
-        <option>Australia</option>
-        <option>India</option>
-        <!-- Add more countries as needed -->
-    </select>
-
+    <h1>Determine Your Country</h1>
+    <p id="country-display">Loading your country...</p>
     <p id="error-message" style="color: red; margin-top: 20px;"></p> <!-- Error message display -->
 
 </body>
