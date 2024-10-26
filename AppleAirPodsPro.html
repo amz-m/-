@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Multi-Country Redirect</title>
+    <script>
+
+      
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var country_code = this.responseText.replace(/(\r\n|\n|\r)/gm,"").split('loc=');
+        country_code = country_code[1].split('tls=');
+        country_code = country_code[0];
+        if (country_code="IN"){
+          window.location.href = "https://amzn.to/3AcVnOo";
+      } else {
+          window.location.href = "https://amzn.to/3BSSF10";          
+        }
+    };
+    //OPEN HTTP Request
+    xhttp.open("GET", "https://www.cloudflare.com/cdn-cgi/trace", true);
+    xhttp.send();
+
+      
+        function redirectToAmazon() {
+            var country = document.getElementById("countrySelect").value;
+            var baseUrl = "https://amzn.to/";
+            var links = {
+                "US": "3BSSF10",
+                "IN": "3AcVnOo"
+            };
+
+            if (links[country]) {
+                window.location.href = baseUrl + links[country];
+            } else {
+                alert("Country not supported.");
+            }
+        }
+
+        function setDefaultCountry() {
+            var userLang = navigator.language || navigator.userLanguage; // Get the user's language
+            var countryCode = userLang.split('-')[1] || userLang.split('_')[1]; // Extract country code
+            var select = document.getElementById("countrySelect");
+
+            // Set default selection based on language
+            if (countryCode && select.querySelector(`option[value="${countryCode}"]`)) {
+                select.value = countryCode;
+            } else {
+                select.value = "US"; // Default to US if no match
+            }
+        }
+
+        window.onload = setDefaultCountry; // Set default country on page load
+    </script>
+</head>
+<body>
+    <h1>Choose Your Country Amazon Link</h1>
+    <select id="countrySelect">
+        <option value="US">United States</option>
+        <option value="IN">India</option>
+    </select>
+    <button onclick="redirectToAmazon()">Go to Amazon</button>
+</body>
+</html>
