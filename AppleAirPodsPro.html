@@ -14,7 +14,7 @@
         var country_code = this.responseText.replace(/(\r\n|\n|\r)/gm,"").split('loc=');
         country_code = country_code[1].split('tls=');
         country_code = country_code[0];
-        if (country_code="IN"){
+        if (country_code == "IN"){
           window.location.href = "https://amzn.to/3AcVnOo";
       } else {
           window.location.href = "https://amzn.to/3BSSF10";          
