@@ -6,7 +6,8 @@
     <title>Amazon Multi-Country Redirect</title>
     <script>
 
-      
+      function redirectToAmazon() { 
+          
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -22,37 +23,12 @@
     //OPEN HTTP Request
     xhttp.open("GET", "https://www.cloudflare.com/cdn-cgi/trace", true);
     xhttp.send();
-
-      
-        function redirectToAmazon() {
-            var country = document.getElementById("countrySelect").value;
-            var baseUrl = "https://amzn.to/";
-            var links = {
-                "US": "3BSSF10",
-                "IN": "3AcVnOo"
-            };
-
-            if (links[country]) {
-                window.location.href = baseUrl + links[country];
-            } else {
-                alert("Country not supported.");
-            }
+            
         }
 
-        function setDefaultCountry() {
-            var userLang = navigator.language || navigator.userLanguage; // Get the user's language
-            var countryCode = userLang.split('-')[1] || userLang.split('_')[1]; // Extract country code
-            var select = document.getElementById("countrySelect");
+        
 
-            // Set default selection based on language
-            if (countryCode && select.querySelector(`option[value="${countryCode}"]`)) {
-                select.value = countryCode;
-            } else {
-                select.value = "US"; // Default to US if no match
-            }
-        }
-
-        window.onload = setDefaultCountry; // Set default country on page load
+        window.onload = redirectToAmazon; // Set default country on page load
     </script>
 </head>
 <body>
