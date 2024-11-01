@@ -1,47 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon Multi-Country Redirect</title>
-    <script>
-        function redirectToAmazon() {
-            var country = document.getElementById("countrySelect").value;
-            var baseUrl = "https://amzn.to/";
-            var links = {
-                "US": "3BSSF10",
-                "IN": "3AcVnOo"
-            };
-
-            if (links[country]) {
-                window.location.href = baseUrl + links[country];
-            } else {
-                alert("Country not supported.");
-            }
+  <script type="text/javascript">
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var country_code = this.responseText.replace(/(\r\n|\n|\r)/gm,"").split('loc=');
+        country_code = country_code[1].split('tls=');
+        country_code = country_code[0];
+        document.getElementById("countrycode-container").innerHTML = country_code;
+          
+        if (country_code == "IN"){
+          window.location.href = "https://amzn.to/3AcVnOo";
+        } else if (country_code == "CA"){
+          window.location.href = "https://amzn.to/4e5ijwF";  
+        } else if (country_code == "FR"){
+          window.location.href = "https://amzn.to/3Ap8U5y";    
+        } else if (country_code == "DE"){
+          window.location.href = "https://amzn.to/4fLJqhR";       
+        } else if (country_code == "IT"){
+          window.location.href = "https://amzn.to/3NQSyps";       
+        } else if (country_code == "NL"){
+          window.location.href = "https://amzn.to/4fqZ2XN";       
+        } else if (country_code == "PL"){
+          window.location.href = "https://amzn.to/4f9mclA";       
+        } else if (country_code == "ES"){
+          window.location.href = "https://amzn.to/3AqwSgH";       
+        } else if (country_code == "SE"){
+          window.location.href = "https://amzn.to/3UwboWk";    
+        } else if (country_code == "GB"){
+          window.location.href = "https://amzn.to/3CjfACw";    
+        } else if (country_code == "JP"){
+          window.location.href = "https://amzn.to/4eeE5hH";       
+        } else if (country_code == "AU"){
+          window.location.href = "https://amzn.to/3AjoGPj";       
+        } else if (country_code == "MX"){
+          window.location.href = "https://amzn.to/3AmSkTL"; 
+        } else if (country_code == "SA"){
+          window.location.href = "https://amzn.to/3UWlNev";       
+        } else if (country_code == "SG"){
+          window.location.href = "https://amzn.to/3NPveZ1";       
+        } else if (country_code == "BR"){
+          window.location.href = "https://amzn.to/40xi2zx";          
+        } else if (country_code == "AE"){
+          window.location.href = "https://amzn.to/4fe2mWr";                
+        } else {
+          window.location.href = "https://amzn.to/3BSSF10";          
         }
-
-        function setDefaultCountry() {
-            var userLang = navigator.language || navigator.userLanguage; // Get the user's language
-            var countryCode = userLang.split('-')[1] || userLang.split('_')[1]; // Extract country code
-            var select = document.getElementById("countrySelect");
-
-            // Set default selection based on language
-            if (countryCode && select.querySelector(`option[value="${countryCode}"]`)) {
-                select.value = countryCode;
-            } else {
-                select.value = "US"; // Default to US if no match
-            }
-        }
-
-        window.onload = setDefaultCountry; // Set default country on page load
-    </script>
+      }
+    };
+    //OPEN HTTP Request
+    xhttp.open("GET", "https://www.cloudflare.com/cdn-cgi/trace", true);
+    xhttp.send();
+  </script>
 </head>
 <body>
-    <h1>Choose Your Country Amazon Link</h1>
-    <select id="countrySelect">
-        <option value="US">United States</option>
-        <option value="IN">India</option>
-    </select>
-    <button onclick="redirectToAmazon()">Go to Amazon</button>
+<div id="countrycode-container"></div>
 </body>
 </html>
